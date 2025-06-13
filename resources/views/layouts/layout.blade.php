@@ -15,7 +15,7 @@
             {{ session('success') }}
         </div>
     @endif
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const message = document.getElementById('flash-message');
@@ -42,6 +42,18 @@
             </div>
 
             <div class="d-flex gap-2">
+                @unless(auth()->check()) 
+                    <form action="{{ route('login') }}" method="GET">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Войти
+                        </button>
+                    </form>
+                    <form action="{{ route('reg') }}" method="GET">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-user-plus"></i> Регистрация
+                        </button>
+                    </form>
+                @endunless
                 @if(auth()->check())
                     @if(auth()->user()->isAdmin())
                         <form action="{{ route('admin') }}" method="GET" style="display:inline-block;">
